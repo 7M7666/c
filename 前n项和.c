@@ -4,14 +4,14 @@ int main()
     double n;
     double a;
     double sum=0.0;
-    //å¦‚æœè¦äº¤æ›¿+-å¯ä»¥è®¾ç½®ä¸€ä¸ªsign åˆ©ç”¨åˆ†å­æ¥è¿›è¡Œæ¯ä¸€é¡¹çš„æ­£è´ŸåŠ å’Œ
+    //Èç¹ûÒª½»Ìæ+-¿ÉÒÔÉèÖÃÒ»¸ösign ÀûÓÃ·Ö×ÓÀ´½øĞĞÃ¿Ò»ÏîµÄÕı¸º¼ÓºÍ
     int sign=1;
 scanf("%lf",&n);
-printf("è¿™æ˜¯1+..1/nçš„å‰né¡¹å’Œ\n");
+printf("ÕâÊÇ1+..1/nµÄÇ°nÏîºÍ\n");
 for (a=1.0;a<=n;a++){
 sum=sign/a+sum;
 sign=-sign;
 }
-printf("%fæ˜¯å‰%fé¡¹å’Œ\n",sum,n);
+printf("%fÊÇÇ°%fÏîºÍ\n",sum,n);
     return 0;
 }
