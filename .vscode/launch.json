@@ -4,20 +4,17 @@
       "MIMode": "gdb",
       "args": [],
       "cwd": "${fileDirname}",
+      "env": {
+        "PATH": "C:\\mingw64\\bin;${env:PATH}"
+      },
       "environment": [],
       "externalConsole": true,
-      "internalConsoleOptions": "neverOpen",
-      "miDebuggerPath": "W:\\lwl\\mingw64\\bin\\gdb.exe",
-      "name": "gcc single file debug",
-      "preLaunchTask": "check ascii",
+      "internalConsosleOptions": "neverOpen",
+      "miDebuggerPath": "C:\\mingw64\\bin\\gdb.exe",
+      "name": "single file debug",
+      "preLaunchTask": "single file build",
       "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "request": "launch",
-      "setupCommands": [
-        {
-          "ignoreFailures": true,
-          "text": "-enable-pretty-printing"
-        }
-      ],
       "stopAtEntry": false,
       "type": "cppdbg"
     }

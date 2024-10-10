@@ -1,33 +1,24 @@
 {
   "options": {
     "env": {
-      "Path": "W:\\lwl\\mingw64\\bin;${env:Path}"
-    },
-    "shell": {
-      "args": [
-        "/C"
-      ],
-      "executable": "C:\\Windows\\System32\\cmd.exe"
+      "Path": "C:\\mingw64\\bin;${env:Path}"
     }
   },
   "tasks": [
     {
       "args": [
-        "-std=c11",
-        "-Wall",
-        "-Wextra",
-        "-fexec-charset=GBK",
         "-g",
         "${file}",
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-std=c17"
       ],
-      "command": "W:\\lwl\\mingw64\\bin\\gcc.exe",
+      "command": "C:\\mingw64\\bin\\gcc.exe",
       "group": {
         "isDefault": true,
         "kind": "build"
       },
-      "label": "gcc single file build",
+      "label": "single file build",
       "presentation": {
         "clear": true,
         "echo": false,
@@ -40,21 +31,16 @@
       "type": "process"
     },
     {
-      "args": [
-        "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
-        "-ExecutionPolicy",
-        "ByPass",
-        "-NoProfile",
-        "-File",
-        "W:\\lwl\\mingw64\\bin\\pause-console.ps1",
-        {
-          "quoting": "weak",
-          "value": "${fileDirname}\\${fileBasenameNoExtension}.exe"
-        }
-      ],
-      "command": "START",
-      "dependsOn": "gcc single file build",
+      "args": [],
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "dependsOn": "single file build",
       "label": "run and pause",
+      "options": {
+        "cwd": "${fileDirname}",
+        "env": {
+          "Path": "C:\\mingw64\\bin;${env:Path}"
+        }
+      },
       "presentation": {
         "clear": true,
         "echo": false,
@@ -64,30 +50,7 @@
         "showReuseMessage": false
       },
       "problemMatcher": [],
-      "type": "shell"
-    },
-    {
-      "args": [
-        "-ExecutionPolicy",
-        "ByPass",
-        "-NoProfile",
-        "-File",
-        "W:\\lwl\\mingw64\\bin\\check-ascii.ps1",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
-      ],
-      "command": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
-      "dependsOn": "gcc single file build",
-      "label": "check ascii",
-      "presentation": {
-        "clear": true,
-        "echo": false,
-        "focus": false,
-        "panel": "shared",
-        "reveal": "never",
-        "showReuseMessage": false
-      },
-      "problemMatcher": [],
-      "type": "process"
+      "type": "pause-console"
     }
   ],
   "version": "2.0.0"
