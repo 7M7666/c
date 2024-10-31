@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "W:\\lwl\\c\\\u8BA1\u7B97\u673A\u5BFC\u8BBA\u5B9E\u9A8C\\week5\\week5\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DBE1910E-E72C-49E7-9C7C-53F8A1027EEC}|week5.vcxproj|W:\\lwl\\c\\\u8BA1\u7B97\u673A\u5BFC\u8BBA\u5B9E\u9A8C\\week5\\printDot.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "printDot.c",
+              "DocumentMoniker": "W:\\lwl\\c\\\u8BA1\u7B97\u673A\u5BFC\u8BBA\u5B9E\u9A8C\\week5\\printDot.c",
+              "RelativeDocumentMoniker": "..\\printDot.c",
+              "ToolTip": "W:\\lwl\\c\\\u8BA1\u7B97\u673A\u5BFC\u8BBA\u5B9E\u9A8C\\week5\\printDot.c",
+              "RelativeToolTip": "..\\printDot.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-10-18T07:05:51.634Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
