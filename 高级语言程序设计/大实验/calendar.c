@@ -1,77 +1,90 @@
 #include <stdio.h>
 
-// å‡½æ•°å£°æ˜
-void calendar(int year, int month);
-int maxday(int year, int month);
-int weekday1(int year, int month, int day);
+// º¯ÊıÉùÃ÷
+void cal(int year, int month);  // calendar -> cal
+int max(int year, int month);   // maxday -> max
+int wek(int year, int month);   // weekday1 -> wek
 
 int main() {
-    int year, month;
-    printf("è¯·è¾“å…¥å¹´ä»½:\n");
-    scanf("%d", &year);
-    //æ•°æ®éªŒè¯
-    while (year < 1900) {
-        printf("é”™è¯¯ï¼šå¹´ä»½å¿…é¡»å¤§äºç­‰äº1900ã€‚\n");
-        printf("è¯·è¾“å…¥å¹´ä»½:\n");
-        scanf("%d", &year);;
-    }
-    printf("è¯·è¾“å…¥æœˆä»½:\n");
-    scanf("%d", &month);
-    while (month < 1 || month > 12) {
-        printf("é”™è¯¯ï¼šæœˆä»½å¿…é¡»åœ¨1åˆ°12ä¹‹é—´ã€‚\n");
-        printf("è¯·è¾“å…¥æœˆä»½:\n");
+    int year, month, choice;
+    
+    while (1) {
+        printf("\n=== ÈÕÀú²éÑ¯ÏµÍ³ ===\n");
+        printf("1. ²éÑ¯ÈÕÀú\n");
+        printf("2. ÍË³ö³ÌĞò\n");
+        printf("ÇëÑ¡Ôñ²Ù×÷: ");
+        scanf("%d", &choice);
+        
+        if (choice == 2) {
+            printf("³ÌĞòÒÑÍË³ö\n");
+            break;
+        }
+        
+        if (choice != 1) {
+            printf("ÎŞĞ§µÄÑ¡Ôñ£¬ÇëÖØĞÂÊäÈë£¡\n");
+            continue;
+        }
+        
+        printf("ÇëÊäÈëÄê·İ: ");
+        scanf("%d", &year);
+        
+        while (year < 1900) {
+            printf("´íÎó£ºÄê·İ±ØĞë´óÓÚµÈÓÚ1900\n");
+            printf("ÇëÖØĞÂÊäÈëÄê·İ: ");
+            scanf("%d", &year);
+        }
+        
+        printf("ÇëÊäÈëÔÂ·İ: ");
         scanf("%d", &month);
+        
+        while (month < 1 || month > 12) {
+            printf("´íÎó£ºÔÂ·İ±ØĞëÔÚ1µ½12Ö®¼ä\n");
+            printf("ÇëÖØĞÂÊäÈëÔÂ·İ: ");
+            scanf("%d", &month);
+        }
+        
+        cal(year, month);
     }
-    calendar(year, month); // è°ƒç”¨æ—¥å†å‡½æ•°
     return 0;
 }
 
-// æŸæœˆçš„æœ€å¤§å¤©æ•°
-int maxday(int year, int month) {
-    
+int max(int year, int month) {
     int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if (month == 2 && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))) {
-        return 29;
-    }
-    return days[month - 1];
+    return (month == 2 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) 
+           ? 29 : days[month - 1];
 }
 
-// æŸ¥è¯¢æŸæœˆ1æ—¥æ˜¯æ˜ŸæœŸå‡ 
-int weekday1(int year, int month, int day) {
-    
-    int sum = 0;
-    for (int i = 1900; i < year; i++) { // ä»1900å¹´å¼€å§‹è®¡æ—¶
-        if (i % 4 == 0 && (i % 100 != 0 || i % 400 == 0)) {
-            // é—°å¹´
-            sum += 366;
-        } else {
-            sum += 365;
-        }
-    }
-    for (int i = 0; i < month - 1; i++) {
-        sum += maxday(year, i + 1); // åŠ ä¸Šæ¯ä¸ªæœˆçš„æ€»å¤©æ•°
-    }
-    sum += day;
-    return (sum % 7)-1; // å‡å»1ï¼Œå› ä¸º1900å¹´1æœˆ1æ—¥æ˜¯æ˜ŸæœŸä¸€
+int wek(int year, int month) {
+    static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+    year -= month < 3;
+    return (year + year/4 - year/100 + year/400 + t[month-1] + 1) % 7;
 }
 
-// ä¸»ä½“å‡½æ•°ï¼Œè¾“å‡ºæœˆä»½æ—¥å†ï¼Œä½¿ç”¨â€œä¸€äºŒä¸‰å››äº”å…­æ—¥â€ä½œä¸ºæŠ¬å¤´
-void calendar(int year, int month) {
-    int weekday = weekday1(year, month, 1);
-    int themaxday = maxday(year, month);
+void cal(int year, int month) {
+    char *weekdays[] = {"ÈÕ", "Ò»", "¶ş", "Èı", "ËÄ", "Îå", "Áù"};
+    int start = wek(year, month);
+    int days = max(year, month);
     
-    printf("\n\t\t\t\t%då¹´%dæœˆ\n", year, month); // æ³¨é‡Šç°åœ¨æ˜¯å‡ å¹´å‡ æœˆçš„æ—¥å†
-    printf("\n \tä¸€\täºŒ\tä¸‰\tå››\täº”\tå…­\tæ—¥\n\n"); // ç”¨tabå¯ä»¥æ›´å¥½çœ‹
-    // è¾“å‡ºtabåˆ¶è¡¨ç¬¦
-    for (int i = 0; i < weekday; i++) {
+    printf("\n\t\t%dÄê%dÔÂ\n", year, month);
+    printf("\n");
+    
+    // ´òÓ¡ĞÇÆÚÍ·
+    for (int i = 0; i < 7; i++) {
+        printf("%s\t", weekdays[i]);
+    }
+    printf("\n");
+    
+    // ´òÓ¡ÈÕÆÚÇ°µÄ¿Õ¸ñ
+    for (int i = 0; i < start; i++) {
         printf("\t");
     }
-    // è¾“å‡ºå¯¹åº”çš„æ—¥æœŸ
-    for (int i = 1; i <= themaxday; i++) {
-        printf("\t%2d", i);
-        if ((i + weekday) % 7 == 0) { // æ˜ŸæœŸå¤©å°±æ¢è¡Œ
+    
+    // ´òÓ¡ÈÕÆÚ
+    for (int i = 1; i <= days; i++) {
+        printf("%d\t", i);
+        if ((i + start) % 7 == 0) {
             printf("\n");
         }
     }
-    printf("\n"); // è¾“å‡ºä¸€ä¸ªæ¢è¡Œç¬¦ è®©ç»“æœæ›´å¥½çœ‹
+    printf("\n\n");
 }

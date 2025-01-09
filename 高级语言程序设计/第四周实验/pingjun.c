@@ -1,24 +1,58 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-int main(int argc, const char *argv[])
-{
-    int scores[4]; // å­˜å‚¨æˆç»©
-    double sum = 0; // è®¡ç®—æˆç»©å’Œ
-    printf("è¯·è¾“å…¥å››é—¨è¯¾çš„æˆç»©\n");
-    for (int i = 0; i < 4; i++)
-    {
-        scanf("%d", &scores[i]); // ä½¿ç”¨ &scores[i] æ¥è·å–åœ°å€
-    }
-    for (int i = 0; i < 4; i++)
-    {
-        sum += scores[i];
-    }
-    sum = sum / 4.0; // å¹³å‡æˆç»©
-    printf("è¿™å››é—¨è¯¾çš„æˆç»©æ˜¯\n");
-    for (int i = 0; i < 4; i++)
-    {
-        printf("%d\n", scores[i]);
-    }
-    printf("è¿™å››é—¨è¯¾çš„å¹³å‡æˆç»©æ˜¯%.2f\n", sum);
+// º¯ÊıÉùÃ÷
+void inp(int s[], int n);  // ÊäÈë³É¼¨
+double avg(int s[], int n); // ¼ÆËãÆ½¾ù³É¼¨
+void prt(int s[], int n, double a); // Êä³ö³É¼¨ºÍÆ½¾ù³É¼¨
+
+int main() {
+    int s[4];  // ´æ´¢ËÄÃÅ¿ÎµÄ³É¼¨
+    double a;  // ´æ´¢Æ½¾ù³É¼¨
+
+    // ÊäÈëËÄÃÅ¿ÎµÄ³É¼¨
+    printf("ÇëÊäÈëËÄÃÅ¿ÎµÄ³É¼¨£¨0-100£©£º\n");
+    inp(s, 4);
+
+    // ¼ÆËãÆ½¾ù³É¼¨
+    a = avg(s, 4);
+
+    // Êä³ö³É¼¨ºÍÆ½¾ù³É¼¨
+    prt(s, 4, a);
+
     return 0;
+}
+
+// ÊäÈë³É¼¨£¬²¢½øĞĞÊäÈëÑéÖ¤
+void inp(int s[], int n) {
+    for (int i = 0; i < n; i++) {
+        while (1) {
+            printf("µÚ%dÃÅ¿Î³É¼¨: ", i + 1);
+            if (scanf("%d", &s[i]) == 1 && s[i] >= 0 && s[i] <= 100) {
+                break;  // ÊäÈëÓĞĞ§£¬Ìø³öÑ­»·
+            } else {
+                // Çå³ı´íÎóÊäÈë
+                while (getchar() != '\n');
+                printf("ÊäÈëÎŞĞ§£¬ÇëÊäÈë 0 µ½ 100 Ö®¼äµÄÕûÊı£¡\n");
+            }
+        }
+    }
+}
+
+// ¼ÆËãÆ½¾ù³É¼¨
+double avg(int s[], int n) {
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += s[i];
+    }
+    return sum / n;
+}
+
+// Êä³ö³É¼¨ºÍÆ½¾ù³É¼¨
+void prt(int s[], int n, double a) {
+    printf("\nËÄÃÅ¿ÎµÄ³É¼¨ÊÇ£º\n");
+    for (int i = 0; i < n; i++) {
+        printf("µÚ%dÃÅ¿Î³É¼¨: %d\n", i + 1, s[i]);
+    }
+    printf("ËÄÃÅ¿ÎµÄÆ½¾ù³É¼¨ÊÇ: %.2f\n", a);
 }

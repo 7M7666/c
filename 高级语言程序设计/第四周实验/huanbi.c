@@ -1,38 +1,79 @@
-//ç¯æ¯”å¢é•¿ç‡
 #include <stdio.h>
+#include <stdbool.h>
 
-int main(int argc,const char *argv[])
- {
-    int sales[4]; // å­˜å‚¨å››ä¸ªå­£åº¦çš„é”€å”®é¢
-    int csales[4]; // å­˜å‚¨å„å­£åº¦ç´¯è®¡é”€å”®é¢
-    double growthrate[3]; // å­˜å‚¨ä¸‰ä¸ªå­£åº¦çš„ç¯æ¯”å¢é•¿ç‡
-    // è¾“å…¥å››ä¸ªå­£åº¦çš„é”€å”®é¢
-    printf("è¯·è¾“å…¥å››ä¸ªå­£åº¦çš„é”€å”®é¢\n");
-    for (int i = 0; i < 4; i++) 
-    {
-        scanf("%d", &sales[i]);
-    }
-    // è®¡ç®—ç´¯è®¡é”€å”®é¢
-    csales[0] = sales[0];
-    for (int i = 1; i < 4; i++) 
-    {
-        csales[i] = csales[i - 1] + sales[i];
-    }
-    // è®¡ç®—ç¯æ¯”å¢é•¿ç‡
-    for (int i = 0; i < 3; i++)
-    {
-        growthrate[i] = ((double)(sales[i + 1] - sales[i]) / sales[i]) * 100;
-    }
-    // è¾“å‡ºç´¯è®¡é”€å”®é¢
-    printf("å„å­£åº¦è‡ªå¹´åˆèµ·çš„ç´¯è®¡é”€å”®é¢:\n");
-    for (int i = 0; i < 4; i++) {
-        printf("ç¬¬%då­£åº¦ç´¯è®¡é”€å”®é¢: %d\n", i + 1, csales[i]);
-    }
-    // è¾“å‡ºç¯æ¯”å¢é•¿ç‡
-    printf("ç¬¬ä¸€å­£åº¦å¤–çš„ä¸‰ä¸ªå­£åº¦çš„ç¯æ¯”å¢é•¿ç‡:\n");
-    for (int i = 0; i < 3; i++) {
-        printf("ç¬¬%då­£åº¦ç¯æ¯”å¢é•¿ç‡: %.2f%%\n", i + 2, growthrate[i]);
-    }
+// º¯ÊıÉùÃ÷
+void inp(int a[], int n);
+void cum(int a[], int b[], int n);
+void gr(int a[], double c[], int n);
+void prt(int b[], double c[], int n);
+
+int main() {
+    int a[4];      // ´æ´¢ËÄ¸ö¼¾¶ÈµÄÏúÊÛ¶î
+    int b[4];      // ´æ´¢ÀÛ¼ÆÏúÊÛ¶î
+    double c[3];   // ´æ´¢»·±ÈÔö³¤ÂÊ
+
+    // ÊäÈëËÄ¸ö¼¾¶ÈµÄÏúÊÛ¶î
+    printf("ÇëÊäÈëËÄ¸ö¼¾¶ÈµÄÏúÊÛ¶î£¨±ØĞëÎªÕıÕûÊı£©£º\n");
+    inp(a, 4);
+
+    // ¼ÆËãÀÛ¼ÆÏúÊÛ¶î
+    cum(a, b, 4);
+
+    // ¼ÆËã»·±ÈÔö³¤ÂÊ
+    gr(a, c, 4);
+
+    // Êä³ö½á¹û
+    prt(b, c, 4);
+
     return 0;
 }
 
+// ÊäÈëÏúÊÛ¶î£¬²¢½øĞĞÊäÈëÑéÖ¤
+void inp(int a[], int n) {
+    for (int i = 0; i < n; i++) {
+        while (1) {
+            printf("µÚ%d¼¾¶ÈÏúÊÛ¶î: ", i + 1);
+            if (scanf("%d", &a[i]) == 1 && a[i] > 0) {
+                break;  // ÊäÈëÓĞĞ§£¬Ìø³öÑ­»·
+            } else {
+                // Çå³ı´íÎóÊäÈë
+                while (getchar() != '\n');
+                printf("ÊäÈëÎŞĞ§£¬ÇëÊäÈëÒ»¸öÕıÕûÊı£¡\n");
+            }
+        }
+    }
+}
+
+// ¼ÆËãÀÛ¼ÆÏúÊÛ¶î
+void cum(int a[], int b[], int n) {
+    b[0] = a[0];
+    for (int i = 1; i < n; i++) {
+        b[i] = b[i - 1] + a[i];
+    }
+}
+
+// ¼ÆËã»·±ÈÔö³¤ÂÊ
+void gr(int a[], double c[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        if (a[i] == 0) {
+            c[i] = 0.0;  // Èç¹ûÉÏÒ»¼¾¶ÈÏúÊÛ¶îÎª0£¬Ôö³¤ÂÊÉèÎª0
+        } else {
+            c[i] = ((double)(a[i + 1] - a[i]) / a[i]) * 100;
+        }
+    }
+}
+
+// Êä³ö½á¹û
+void prt(int b[], double c[], int n) {
+    // Êä³öÀÛ¼ÆÏúÊÛ¶î
+    printf("\n¸÷¼¾¶È×ÔÄê³õÆğµÄÀÛ¼ÆÏúÊÛ¶î:\n");
+    for (int i = 0; i < n; i++) {
+        printf("µÚ%d¼¾¶ÈÀÛ¼ÆÏúÊÛ¶î: %d\n", i + 1, b[i]);
+    }
+
+    // Êä³ö»·±ÈÔö³¤ÂÊ
+    printf("\nµÚÒ»¼¾¶ÈÍâµÄÈı¸ö¼¾¶ÈµÄ»·±ÈÔö³¤ÂÊ:\n");
+    for (int i = 0; i < n - 1; i++) {
+        printf("µÚ%d¼¾¶È»·±ÈÔö³¤ÂÊ: %.2f%%\n", i + 2, c[i]);
+    }
+}
